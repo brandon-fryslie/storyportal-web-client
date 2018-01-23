@@ -1,0 +1,110 @@
+@import "compass-mixins";
+@import "compass/css3";
+
+$num-wheels: 1;
+$num-sides: 16;
+$wheel-height: 8rem;
+
+
+
+@function randomColor($format:NULL) {
+  $red: random(256);
+  $green: random(256);
+  $blue: random(256);
+  $opacity: random(100) / 100;
+  @if $format == "hex" {
+    @return rgba($red, $green, $blue, 1);
+  }
+  @else {
+    @return rgba($red, $green, $blue, $opacity);
+  }
+}
+
+.wheels {
+  box-sizing: border-box;
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+  display: inline-block;
+  padding: 0;
+
+  text-align: center;
+
+  width: 8rem;
+  height: $wheel-height;
+
+  cursor: -webkit-grab;
+  cursor: grab;
+
+  @include user-select(none);
+  @include transform(translate(-100%, -50%));
+  -ms-transform: translate(-50%, -50%);
+
+  & .wheel {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100% / $num-wheels;
+
+    @include transform-style(preserve-3d);
+    @include transform-origin(100%, 25%);
+
+    & > div {
+      box-sizing: border-box;
+      position: absolute;
+      display: inline-block;
+      width: 100%;
+      height: 50%;
+      line-height: $wheel-height/2;
+      text-align: center;
+      z-index: 0;
+      background: #C43;
+      border: solid 2px #333;
+      outline: 1px solid transparent;
+      -ms-backface-visibility: hidden;
+
+      $angle: 360deg/$num-sides;
+      @for $i from 1 through $num-sides {
+        &:nth-of-type(#{$i}){
+          @include transform(perspective(500px) rotate3d(1,0,0,$angle*($i - 1)) translate3d(0,0,158px));
+          background: hsla($angle*($i - 1), 100%, 75%, 0.8);
+        }
+      }
+    }
+
+  }
+
+}
+
+@include keyframes(spin) {
+  0% {
+    @include transform(rotate3d(1,0,0,0deg));
+  }
+  100% {
+    @include transform(rotate3d(1,0,0,-360deg));
+  }
+}
+
+h1, h2 {
+  text-align: center;
+}
+h2 {
+  margin-bottom: 0;
+}
+
+html, body {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  background: #666;
+  color: #fff;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
