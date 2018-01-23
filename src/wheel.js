@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import renderWheelJquery from './wheel-jquery'
-import './Wheel.css'
+import './Wheel.scss'
 
 class Wheel extends Component {
 

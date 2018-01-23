@@ -1,5 +1,7 @@
-@import "compass-mixins";
-@import "compass/css3";
+@import "../node_modules/compass-mixins/lib/animate";
+@import "../node_modules/compass-mixins/lib/compass.scss";
+@import "../node_modules/compass-mixins/lib/compass/functions";
+//@import "compass/css3";
 
 $num-wheels: 1;
 $num-sides: 16;
